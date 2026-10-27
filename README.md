@@ -19,14 +19,21 @@ this package's protocol and renderer.
 ## Install
 
 ```bash
+pip install lxd02
+```
+
+This installs the `lxd02` package and the `lxd02-print` command. To work on the code
+instead, clone this repository and install it editable in a virtual
+environment:
+
+```bash
 python -m venv .venv
 ```
 ```bash
 .venv\Scripts\python -m pip install -e .
 ```
 
-On macOS/Linux use `.venv/bin/python` instead of `.venv\Scripts\python`. This
-installs the `lxd02` package and the `lxd02-print` command.
+On macOS/Linux use `.venv/bin/python` instead of `.venv\Scripts\python`.
 
 The printer switches itself off after a few minutes idle, and accepts only one
 connection: turn it on and close the phone app (and turn off Home Assistant's
@@ -162,6 +169,21 @@ pip install -e . pytest pytest-asyncio
 pytest
 ```
 
+### Releasing
+
+Releases go to [PyPI](https://pypi.org/project/lxd02/) through the
+[Publish workflow](.github/workflows/publish.yml), with trusted publishing (no
+API tokens):
+
+1. Bump `version` in `pyproject.toml` and push.
+2. Optional: *Actions → Publish → Run workflow* uploads that build to
+   [TestPyPI](https://test.pypi.org/project/lxd02/); try it with
+   `pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ lxd02`.
+   TestPyPI refuses a version it already has, so bump again to re-test.
+3. Publish a GitHub release with the tag `v` + the version (e.g. `v0.1.1`).
+   The workflow checks the tag matches, builds, smoke-tests the wheel and
+   uploads it to PyPI.
+
 ## Files
 
 | Path | What it is |
@@ -173,3 +195,5 @@ pytest
 | `src/lxd02/assets/` | DejaVu Sans / Sans Mono fonts and license, MDI icon font 7.4.47 and license |
 | `tests/` | protocol, renderer and CLI tests |
 | `PROTOCOL.md` | the reverse-engineered printer protocol |
+| `.github/workflows/publish.yml` | build and publish to PyPI / TestPyPI |
+| `LICENSE` | MIT; the bundled fonts keep their own licenses |
