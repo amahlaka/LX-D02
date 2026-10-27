@@ -67,7 +67,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/project/lxd02/
+      url: https://pypi.org/project/lxd02-printer/
     permissions:
       id-token: write
     steps:
@@ -84,7 +84,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: testpypi
-      url: https://test.pypi.org/project/lxd02/
+      url: https://test.pypi.org/project/lxd02-printer/
     permissions:
       id-token: write
     steps:

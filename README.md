@@ -19,10 +19,10 @@ this package's protocol and renderer.
 ## Install
 
 ```bash
-pip install lxd02
+pip install lxd02-printer
 ```
 
-This installs the `lxd02` package and the `lxd02-print` command. To work on the code
+This installs the `lxd02` module (`import lxd02`) and the `lxd02-print` command. To work on the code
 instead, clone this repository and install it editable in a virtual
 environment:
 
@@ -171,14 +171,14 @@ pytest
 
 ### Releasing
 
-Releases go to [PyPI](https://pypi.org/project/lxd02/) through the
+Releases go to [PyPI](https://pypi.org/project/lxd02-printer/) through the
 [Publish workflow](.github/workflows/publish.yml), with trusted publishing (no
 API tokens):
 
 1. Bump `version` in `pyproject.toml` and push.
 2. Optional: *Actions → Publish → Run workflow* uploads that build to
-   [TestPyPI](https://test.pypi.org/project/lxd02/); try it with
-   `pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ lxd02`.
+   [TestPyPI](https://test.pypi.org/project/lxd02-printer/); try it with
+   `pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ lxd02-printer`.
    TestPyPI refuses a version it already has, so bump again to re-test.
 3. Publish a GitHub release with the tag `v` + the version (e.g. `v0.1.1`).
    The workflow checks the tag matches, builds, smoke-tests the wheel and
