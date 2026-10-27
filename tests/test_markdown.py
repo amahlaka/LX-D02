@@ -29,6 +29,14 @@ def test_inline_nesting_and_literals() -> None:
     assert parse_inline("`**not bold**`") == [("**not bold**", C)]
 
 
+def test_unclosed_markers_parse_in_linear_time() -> None:
+    import time
+    text = ("**a _b `c ~~d [e " * 3000)  # ~50 kB of style markers on one line
+    start = time.perf_counter()
+    parse_inline(text)
+    assert time.perf_counter() - start < 0.5  # unbounded spans took ~1 s here, growing quadratically
+
+
 def test_blocks() -> None:
     blocks = parse_blocks(
         "# Title\n\nSome *text*\nnext line\n\n- [ ] todo\n- [x] done\n  - nested\n1. one\n\n"

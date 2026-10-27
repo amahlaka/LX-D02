@@ -59,15 +59,17 @@ class Style:
 
 Run = tuple[str, Style]
 
+# Spans stay on one line and are capped in length, so an unclosed marker can't
+# make every position scan to the end of a long text (quadratic time).
 _INLINE = re.compile(r"""
     (?P<esc>\\[\\`*_~\[\]()\#+\-.!>|])
-  | (?P<ticks>`+)(?P<code>.+?)(?P=ticks)
-  | \*\*(?P<b1>.+?)\*\*(?!\*)
-  | (?<!\w)__(?P<b2>.+?)__(?!\w)
-  | ~~(?P<s>.+?)~~
-  | \*(?P<i1>[^*\s](?:.*?[^*\s])?)\*
-  | (?<!\w)_(?P<i2>[^_\s](?:.*?[^_\s])?)_(?!\w)
-  | !?\[(?P<link>[^\]]+)\]\((?P<url>[^)\s]*)\)
+  | (?P<ticks>`+)(?P<code>[^\n]{1,200}?)(?P=ticks)
+  | \*\*(?P<b1>[^\n]{1,200}?)\*\*(?!\*)
+  | (?<!\w)__(?P<b2>[^\n]{1,200}?)__(?!\w)
+  | ~~(?P<s>[^\n]{1,200}?)~~
+  | \*(?P<i1>[^*\s](?:[^\n]{0,200}?[^*\s])?)\*
+  | (?<!\w)_(?P<i2>[^_\s](?:[^\n]{0,200}?[^_\s])?)_(?!\w)
+  | !?\[(?P<link>[^\]\n]{1,200})\]\((?P<url>[^)\s]{0,500})\)
 """, re.VERBOSE)
 
 
