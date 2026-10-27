@@ -1,0 +1,14 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+
+# Vendor app binaries (third party)
+*.apk
+*.xapk
+
+# Rendered test labels
+previews/
